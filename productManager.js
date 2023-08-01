@@ -1,16 +1,12 @@
 import fs from 'fs';
-const filePath = './Prod.json';
 
-if (!fs.existsSync(filePath)) {
-    fs.writeFileSync(filePath, '[]', 'utf-8');
-    console.log(`Se ha creado el archivo ${filePath}`);
-}
 
 
 class productManager {
     constructor(path) {
         this.path = path
-        this.products = [];
+        this.products=[  
+        ]
     }
 
     async findProd() {
