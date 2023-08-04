@@ -3,7 +3,6 @@ import fs from "fs"
 export default class ProductManager {
     constructor(path) {
         this.path = "../files/Prod.json"
-
     }
 
     getProducts = async (info) => {
@@ -14,8 +13,7 @@ export default class ProductManager {
                 const productlistparse = JSON.parse(productlist)
                 const productlistsliced = productlistparse.slice(0, limit)
                 return productlistsliced
-            }
-            else {
+            } else {
                 console.error("Error al listar productos")
                 return
             }
@@ -24,7 +22,6 @@ export default class ProductManager {
             throw new Error(error)
         }
     }
-
 
     getProductbyId = async (id) => {
         const { pid } = id
@@ -38,9 +35,6 @@ export default class ProductManager {
         }
     }
 
-
-
-    //GENERATE ID 
     generateId = async () => {
         if (fs.existsSync(this.path)) {
             const listaproducts = await this.getProducts({})
@@ -53,18 +47,18 @@ export default class ProductManager {
             }
         }
     }
-    //CREATE
+
     addProduct = async (obj) => {
         const { title, description, price, thumbnail, category, status = true, code, stock } = obj
         if (title === undefined || description === undefined || price === undefined || category === undefined || status === undefined || code === undefined || stock === undefined) {
-            console.error("INGRESE TODOS LOS DATOS DEL PRODUCTO")
+            console.error("ALL PRODUCTS FIELDS REQUIRED")
             return
         }
         else {
             const listaproducts = await this.getProducts({})
             const codigorepetido = listaproducts.find(elemento => elemento.code === code)
             if (codigorepetido) {
-                console.error("EL CODIGO DEL PRODUCTO QUE DESEA AGREGAR ES REPETIDO")
+                console.error("REPEATED PRODUCT CODE")
                 return
             }
             else {
@@ -78,20 +72,18 @@ export default class ProductManager {
         }
     }
 
-
-    //UPDATE
     updateProduct = async (id, obj) => {
         const { pid } = id
         const { title, description, price, thumbnail, category, status, code, stock } = obj
         if (title === undefined || description === undefined || price === undefined || category === undefined || status === undefined || code === undefined || stock === undefined) {
-            console.error("INGRESE TODOS LOS DATOS DEL PRODUCTO PARA SU ACTUALIZACION")
+            console.error("ALL PRODUCTS FIELDS REQUIRED POR UPDATE")
             return
         }
         else {
             const allproducts = await this.getProducts({})
             const codigorepetido = allproducts.find(elemento => elemento.code === code)
             if (codigorepetido) {
-                console.error("EL CODIGO DEL PRODUCTO QUE DESEA ACTUALIZAR ES REPETIDO")
+                console.error("REPEATED PRODUCT CODE FOR UPDATE")
                 return
             }
             else {
@@ -112,15 +104,12 @@ export default class ProductManager {
                     }
                 })
                 await fs.promises.writeFile(this.path, JSON.stringify(newProductsList, null, 2))
-
             }
 
         }
     }
 
-
-    //DELETE
-    deleteProduct = async (id) => {
+deleteProduct = async (id) => {
         const { pid } = id
         const allproducts = await this.getProducts({})
         const productswithoutfound = allproducts.filter(elemento => elemento.id !== parseInt(pid))
