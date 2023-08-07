@@ -34,7 +34,7 @@ export default class CartManager {
     }
   }
 
-  generateCartId = async () => {
+  createCartId = async () => {
     if (fs.existsSync(this.path)) {
       const listadecarts = await this.getCarts()
       const counter = listadecarts.length
@@ -49,7 +49,7 @@ export default class CartManager {
 
   addCart = async () => {
     const listadecarts = await this.getCarts()
-    const id = await this.generateCartId()
+    const id = await this.createCartId()
     const cartnew = {
       id,
       products: []
