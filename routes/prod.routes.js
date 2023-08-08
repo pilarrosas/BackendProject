@@ -25,7 +25,8 @@ console.log(req.params)
     res.send({status:"success",updatedproduct})
 })
 router.delete("/products/:pid",async(req,res)=>{
-    const deletedproduct=await manager.deleteProduct(req.params)
+    const id = parseInt(req.params.pid)
+    const deletedproduct=await manager.deleteProduct(id)
     res.send({status:"success",deletedproduct})
 })
 

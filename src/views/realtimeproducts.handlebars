@@ -1,4 +1,25 @@
-<h2>HOLLA MUNDO</h2>
+<form id="form" class="topBefore">
+    <h2 style="color: aliceblue;">Add New Product</h2>
+		
+		  <input id="title" type="text" placeholder="PRODUCT NAME" required>
+		  <input id="description" type="text" placeholder="PRODUCT DESCRIPTION">
+          <input id="stock" type="number" placeholder="PRODUCT STOCK" required>
+          <input id="thumbnail" type="text" placeholder="THUMBNAIL URL">
+          <input id="category" type="text" placeholder="PRODUCT CATEGORY">
+          <input id="price" type="number" placeholder="PRODUCT PRICE" required>
+          <input id="code" type="number" placeholder="PRODUCT CODE" required>
+  <input id="addproduct" type="submit" value="ADD!">
+
+  <h2 style="color: aliceblue;">Delete Product</h2>
+  <input id="id-product" name="id-product" type="number" placeholder="PRODUCT ID">
+   <input id="delete-btn" type="button" value="DELETE!">
+</form>
+
+
+
+<div id="prod-list">
+
+</div>
 
 <script src="/socket.io/socket.io.js"></script>
 <script src="/js/realtime.js"></script>

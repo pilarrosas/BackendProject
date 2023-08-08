@@ -5,6 +5,7 @@ import cartRouter from "../routes/cart.routes.js"
 import {__dirname} from "./utils.js"
 import handlebars from 'express-handlebars'
 import { Server } from "socket.io"
+import ProductManager from "../managers/productManager.js"
 
 const app=express()
 const PORT=8080;
@@ -25,7 +26,25 @@ const httpServer = app.listen(PORT,()=>{
     console.log("SERVER SI WORKING")
 })
 
+const prodManaSocket = new ProductManager(__dirname + "/files/Prod.json")
 const socketServer = new Server(httpServer)
-socketServer.on("connection", (socket) => {
+
+socketServer.on("connection", async (socket) => {
     console.log("CLIENT CONNECTED WHIT ID NUMBER:",socket.id);
+    const products = await prodManaSocket.getProducts({})
+    socketServer.emit("productos", products)
+
+    
+    socket.on("addProduct", async data => {
+        await prodManaSocket.addProduct(data)
+        const updatedProducts =await prodManaSocket.getProducts({});
+        socketServer.emit("updateproducts", updatedProducts)
+    })
+
+    socket.on("deleteProduct", async (id) => {
+        console.log("DELETED PRODUCT ID :", id);
+        const deletedProduct = await prodManaSocket.deleteProduct(id);
+        const updatedProducts = await prodManaSocket.getProducts({});
+        socketServer.emit("productUpdate", updatedProducts);
+      });
 })
