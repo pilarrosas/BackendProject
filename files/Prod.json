@@ -1,16 +1,5 @@
 [
   {
-    "id": 1,
-    "title": "Men's T-Shirts",
-    "description": "These are quality T's with the Rogue name and unique designs inspired by top Rogue athletes.",
-    "price": 12,
-    "thumbnail": "https://i.pinimg.com/originals/3a/23/ed/3a23ed05a62dcfac2ef9c01e3ddc92ee.jpg",
-    "category": "Fitness and Lifestyle Apparel",
-    "status": true,
-    "code": 86554,
-    "stock": 10
-  },
-  {
     "id": 3,
     "title": "Gym Men's T-Shirt",
     "description": "Your Workout is My Warm-up Funny T-Shirt Crossfit",

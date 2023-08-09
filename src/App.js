@@ -10,6 +10,10 @@ import ProductManager from "../managers/productManager.js"
 const app=express()
 const PORT=8080;
 
+app.get('/', (req, res) => {
+    res.send('¡WELCOME!');
+  });
+
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
 app.use(express.static(__dirname + "/public"))
@@ -29,7 +33,7 @@ const httpServer = app.listen(PORT,()=>{
 const prodManaSocket = new ProductManager(__dirname + "/files/Prod.json")
 const socketServer = new Server(httpServer)
 
-socketServer.on("connection", async (socket) => {
+socketServer.on("connection", async socket => {
     console.log("CLIENT CONNECTED WHIT ID NUMBER:",socket.id);
     const products = await prodManaSocket.getProducts({})
     socketServer.emit("productos", products)
